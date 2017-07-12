@@ -166,7 +166,16 @@ class Pages extends Resource
 
         return '';
     }
-
+    
+    private function getPageMedia($page) {
+        $allmedia = $page->media()->all();
+        $media = array();
+        foreach ($allmedia as $item) {
+          $media[] = $item->toArray();
+        }
+        return $media;
+    }
+    
     /**
      * Build a page structure
      *
@@ -241,6 +250,7 @@ class Pages extends Resource
             'untranslatedLanguages' => $page->untranslatedLanguages(),
             'url' => $page->url(),
             'visible' => $page->visible(),
+            'media' => $this->getPageMedia($page),
         ];
     }
 
